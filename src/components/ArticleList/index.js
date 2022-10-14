@@ -4,15 +4,18 @@ import SingleArticle from "../SingleArticle";
 import { useDispatch, useSelector } from "react-redux";
 // useSelector allows for the ArticleList needs to subscribe to the store and listen for changes in the articles slice of state
 import { loadArticles } from "../../store/articleReducer";
-
+// loadArticles is the action creator
 const ArticleList = () => {
   const dispatch = useDispatch();
-  //retrieve the entries by listening to changes in the data/state
-  const articles = useSelector((state) => state.articleState.entries);
+  //retrieve the array of entries by listening to changes in the data/state via a useSelector, store is the selector
+  const articles = useSelector((store) => store.articleState.entries);
   // load the article data into the store after the first render:
   useEffect(() => {
+    // dispatch is like a fetch
+    // dispatch({type: "article/loadArticles", articles}), need to invoke the function like below
     dispatch(loadArticles());
   }, [dispatch]);
+
   return (
     <div>
       <h1>Article List</h1>
